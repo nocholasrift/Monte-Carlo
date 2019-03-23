@@ -38,7 +38,6 @@ def main():
 	n,NUM_RUNS,index,tot = 0,1000,0,0
 	w_space = []
 	#plot_domain = [i for i in range(1000)]
-	call_process(100)
 	for n in range(NUM_RUNS):
 		w_space.append(call_process(index))
 		#add 3 to index so no repeat parameters go into rng method in call_process
