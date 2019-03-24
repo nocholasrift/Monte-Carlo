@@ -17,14 +17,17 @@ def rvg(U):
 	return -12*m.log(1-U)
 
 def call_process():
-	i,w,BUSY, UNAVAILABLE=0,7,3,25
+	i,w,BUSY, UNAVAILABLE=0,0,3,25
 	for i in range(4):
+		w+=6
 		num = rng(1000)
 		#line is busy
 		if num < .2:
 			w += BUSY
+			w+=1
 		elif num < .5:
 			w += UNAVAILABLE
+			w+=1
 		else:
 			U = rng(1000)
 			secs = rvg(U)
@@ -33,14 +36,13 @@ def call_process():
 				break
 			else:
 				w += 25
+				w += 1
 	return w
 
 def main():
 	n,NUM_RUNS,index,tot = 0,1000,0,0
 	w_space = []
 	#plot_domain = [i for i in range(1000)]
-	maximum = -1
-	minimum = 107
 	for n in range(NUM_RUNS):
 		w_space.append(call_process())
 		tot += w_space[n]
@@ -56,13 +58,13 @@ def main():
 	print("THIRD QUARTILE IS:",w_space[third_quart])
 	print("MAX IS:",w_space[-1])
 	print("MIN IS: ",w_space[0])
-	print("P(W <= 15):",len([i for i in w_space if i <= 15])/1000)
-	print("P(W <= 20):",len([i for i in w_space if i <= 20])/1000)
-	print("P(W <= 30):",len([i for i in w_space if i <= 30])/1000)
-	print("P(W > 40): ",len([i for i in w_space if i > 40])/1000)
-	print("P(W > 107):",len([i for i in w_space if i > 107])/1000)
-	print("P(W > 87): ",len([i for i in w_space if i > 87])/1000)
-	print("P(W > 63.5):",len([i for i in w_space if i > 63.5])/1000)
+	print("P(W <= 15):",len([i for i in w_space if i <= 15])/NUM_RUNS)
+	print("P(W <= 20):",len([i for i in w_space if i <= 20])/NUM_RUNS)
+	print("P(W <= 30):",len([i for i in w_space if i <= 30])/NUM_RUNS)
+	print("P(W > 40): ",len([i for i in w_space if i > 40])/NUM_RUNS)
+	print("P(W > 128):",len([i for i in w_space if i > 128])/NUM_RUNS)
+	print("P(W > 108): ",len([i for i in w_space if i > 108])/NUM_RUNS)
+	print("P(W > 74):",len([i for i in w_space if i > 74])/NUM_RUNS)
 	"""mpl.scatter(plot_domain,w_space, alpha = .5)
 				mpl.show()"""
 main()
